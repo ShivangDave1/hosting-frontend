@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [toys, setToys] = useState([])
+
+  useEffect(() => {
+    fetch('https://murmuring-woodland-61536.herokuapp.com/toys')
+    .then(res => res.json())
+    .then(setToys)
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        toys.map(toy => <img width={100} key={toy.id} src={toy.image} />)
+      }
     </div>
   );
 }
